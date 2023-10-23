@@ -14,7 +14,7 @@ module: az_blobcontainer_list
 
 short_description: List Azure blobs module
 
-version_added: "0.0.1"
+version_added: "1.0.0"
 
 description: Lists the blobs under a specified azure storage container.
 
@@ -46,7 +46,7 @@ options:
             - start_with
 
 extends_documentation_fragment:
-    - azure.azcollection.azure
+    - pytoccaz.azure.azure
 
 author:
     - Olivier Bernard
