@@ -45,8 +45,12 @@ options:
         aliases:
             - start_with
 
+extends_documentation_fragment:
+    - azure.azcollection.azure
+
 author:
     - Olivier Bernard
+    
 '''
 
 EXAMPLES = r'''
