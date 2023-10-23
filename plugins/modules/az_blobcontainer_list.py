@@ -14,7 +14,7 @@ module: az_blobcontainer_list
 
 short_description: List Azure blobs module
 
-version_added: "1.0.0"
+version_added: "0.0.1"
 
 description: Lists the blobs under a specified azure storage container.
 

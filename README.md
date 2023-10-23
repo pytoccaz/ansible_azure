@@ -6,6 +6,18 @@
 This collection has been tested against following Ansible versions: **>=2.13.13**.
 <!--end requires_ansible-->
 
+## Installation
+
+Collection `azure.azcollection` is required.
+
+Download from Galaxy:
+
+```bash
+ansible-galaxy collection install pytoccaz.azure
+```
+
+## Collection content
+
 <!--start collection content-->
 ### Modules
 Name | Description
@@ -14,8 +26,7 @@ Name | Description
 
 <!--end collection content-->
 
-### Credits
-This program is inspired by and contains code snippets from Andrii Bilorus'azure.azcollection.azure_rm_storageshare module.
+## Credits
+This program is inspired by and contains code snippets from Andrii Bilorus' `azure.azcollection.azure_rm_storageshare` module.
 
-It alse contains documentation fragments from Matt Davis'azure.azcollection.azure module. 
-
+It alse contains documentation fragments from Matt Davis' `azure.azcollection.azure` module.

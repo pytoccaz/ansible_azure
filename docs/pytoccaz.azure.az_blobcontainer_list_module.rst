@@ -8,7 +8,7 @@ pytoccaz.azure.az_blobcontainer_list
 **List Azure blobs module**
 
 
-Version added: 1.0.0
+Version added: 0.0.1
 
 .. contents::
    :local:
