@@ -8,7 +8,7 @@ pytoccaz.azure.az_blobcontainer_list
 **List Azure blobs module**
 
 
-Version added: 0.0.1
+Version added: 1.0.0
 
 .. contents::
    :local:
@@ -65,7 +65,6 @@ Parameters
                     <div style="font-size: small">
                         <span style="color: purple">string</span>
                     </div>
-                    <div style="font-style: italic; font-size: small; color: darkgreen">added in 0.0.1</div>
                 </td>
                 <td>
                 </td>
@@ -81,7 +80,6 @@ Parameters
                     <div style="font-size: small">
                         <span style="color: purple">string</span>
                     </div>
-                    <div style="font-style: italic; font-size: small; color: darkgreen">added in 0.0.1</div>
                 </td>
                 <td>
                         <b>Default:</b><br/><div style="color: blue">"latest"</div>
@@ -98,7 +96,6 @@ Parameters
                     <div style="font-size: small">
                         <span style="color: purple">string</span>
                     </div>
-                    <div style="font-style: italic; font-size: small; color: darkgreen">added in 0.0.1</div>
                 </td>
                 <td>
                         <ul style="margin: 0; padding: 0"><b>Choices:</b>
@@ -128,7 +125,6 @@ Parameters
                     <div style="font-size: small">
                         <span style="color: purple">string</span>
                     </div>
-                    <div style="font-style: italic; font-size: small; color: darkgreen">added in 0.0.1</div>
                 </td>
                 <td>
                         <ul style="margin: 0; padding: 0"><b>Choices:</b>
@@ -163,7 +159,6 @@ Parameters
                     <div style="font-size: small">
                         <span style="color: purple">string</span>
                     </div>
-                    <div style="font-style: italic; font-size: small; color: darkgreen">added in 0.0.1</div>
                 </td>
                 <td>
                         <b>Default:</b><br/><div style="color: blue">"AzureCloud"</div>
@@ -352,7 +347,6 @@ Parameters
                     <div style="font-size: small">
                         <span style="color: purple">string</span>
                     </div>
-                    <div style="font-style: italic; font-size: small; color: darkgreen">added in 1.14.0</div>
                 </td>
                 <td>
                 </td>
@@ -370,7 +364,6 @@ Parameters
                     <div style="font-size: small">
                         <span style="color: purple">path</span>
                     </div>
-                    <div style="font-style: italic; font-size: small; color: darkgreen">added in 1.14.0</div>
                 </td>
                 <td>
                 </td>
