@@ -3,8 +3,6 @@
 # Copyright: (c) 2023, Olivier BERNARD
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 from __future__ import (absolute_import, division, print_function)
-from ansible_collections.azure.azcollection.plugins.module_utils.azure_rm_common import AzureRMModuleBase
-import re
 
 __metaclass__ = type
 
@@ -49,8 +47,8 @@ extends_documentation_fragment:
     - pytoccaz.azure.azure
 
 author:
-    - Olivier Bernard
-    
+    - Olivier Bernard (@pytoccaz)
+
 '''
 
 EXAMPLES = r'''
@@ -68,8 +66,8 @@ blobs:
     description:
         - List of blobs.
     returned: always
-    type: list of dict
-    sample: 
+    type: list
+    sample:
         [
             {
                 "content_length": 136532,
@@ -97,8 +95,11 @@ container:
         "name": "foo",
         "tags": {}
     }
+
 '''
 
+import re
+from ansible_collections.azure.azcollection.plugins.module_utils.azure_rm_common import AzureRMModuleBase
 
 try:
     from azure.core.exceptions import ResourceNotFoundError
@@ -131,7 +132,8 @@ class AzureBlobContainerList(AzureRMModuleBase):
             container=dict(),
             blobs=list(),
         )
-        self.valide_container_name = re.compile("^[a-z0-9]([a-z0-9]|-(?!-)){1,61}[a-z0-9]$")
+        self.valide_container_name = re.compile(
+            "^[a-z0-9]([a-z0-9]|-(?!-)){1,61}[a-z0-9]$")
 
         super(AzureBlobContainerList, self).__init__(derived_arg_spec=self.module_arg_spec,
                                                      supports_check_mode=True,
@@ -144,7 +146,7 @@ class AzureBlobContainerList(AzureRMModuleBase):
 
         if not self.valide_container_name.match(self.container):
             self.fail(
-                "Container name {} is not a valid string".format(
+                "Container name {0} is not a valid string".format(
                     self.container)
             )
 
@@ -162,7 +164,7 @@ class AzureBlobContainerList(AzureRMModuleBase):
             container_props = self.container_client.get_container_properties()
 
         except ResourceNotFoundError:
-            self.fail("Container {} not found".format(self.container))
+            self.fail("Container {0} not found".format(self.container))
 
         self.results["container"] = dict(
             name=container_props["name"],
