@@ -170,7 +170,7 @@ class AzureBlobContainerList(AzureRMModuleBase):
             name=container_props["name"],
             tags=container_props["metadata"],
             last_modified=container_props["last_modified"].strftime(
-                "%Y-%m-%d %H:%M:%S %z"),
+                "%Y-%m-%d %H:%M:%S"),
         )
 
         blob_list = self.container_client.list_blobs(
@@ -180,7 +180,7 @@ class AzureBlobContainerList(AzureRMModuleBase):
                 name=blob["name"],
                 tags=blob["metadata"],
                 last_modified=blob["last_modified"].strftime(
-                    "%Y-%m-%d %H:%M:%S %z"),
+                    "%Y-%m-%d %H:%M:%S"),
                 type=blob["blob_type"],
                 content_length=blob["size"],
                 content_settings=dict(
