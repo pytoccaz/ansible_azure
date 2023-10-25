@@ -23,6 +23,7 @@ options:
         required: true
         aliases:
             - resource_group_name
+        version_added: '1.0.0'
     storage_account_name:
         description:
             - Name of the storage account to use.
@@ -30,25 +31,29 @@ options:
         aliases:
             - account_name
             - storage_account
+        version_added: '1.0.0'
     container:
         description:
             - Name of a blob container within the storage account.
         required: true
         aliases:
             - container_name
+        version_added: '1.0.0'
     name_starts_with:
         description:
             - Filters the results to return only blobs whose names begin with the specified prefix.
         required: false
         aliases:
             - start_with
+        version_added: '1.0.0'
     datetime_format:
         description:
             - Rendering format for last_modified container and blobs date.
         required: false
         default: '%Y-%m-%d %H:%M:%S'
         aliases:
-            - start_with
+            - dt_format
+        version_added: '1.1.0'
 
 extends_documentation_fragment:
     - pytoccaz.azure.azure
@@ -104,9 +109,8 @@ container:
     }
 
 '''
-
-import re
 from ansible_collections.azure.azcollection.plugins.module_utils.azure_rm_common import AzureRMModuleBase
+import re
 
 try:
     from azure.core.exceptions import ResourceNotFoundError
@@ -129,8 +133,8 @@ class AzureBlobContainerList(AzureRMModuleBase):
             name_starts_with=dict(required=False, type='str',
                                   aliases=['starts_with']),
             datetime_format=dict(required=False, type='str',
-                                  default='%Y-%m-%d %H:%M:%S',
-                                   aliases=['dt_format']),
+                                 default='%Y-%m-%d %H:%M:%S',
+                                 aliases=['dt_format']),
         )
         self.resource_group = None
         self.storage_account_name = None
@@ -180,7 +184,8 @@ class AzureBlobContainerList(AzureRMModuleBase):
         self.results["container"] = dict(
             name=container_props["name"],
             tags=container_props["metadata"],
-            last_modified=container_props["last_modified"].strftime(self.datetime_format),
+            last_modified=container_props["last_modified"].strftime(
+                self.datetime_format),
         )
 
         blob_list = self.container_client.list_blobs(
@@ -189,7 +194,8 @@ class AzureBlobContainerList(AzureRMModuleBase):
             blob_result = dict(
                 name=blob["name"],
                 tags=blob["metadata"],
-                last_modified=blob["last_modified"].strftime(self.datetime_format),
+                last_modified=blob["last_modified"].strftime(
+                    self.datetime_format),
                 type=blob["blob_type"],
                 content_length=blob["size"],
                 content_settings=dict(
