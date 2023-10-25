@@ -200,7 +200,7 @@ Parameters
                 </td>
                 <td>
                         <div>Rendering format for last_modified container and blobs date.</div>
-                        <div style="font-size: small; color: darkgreen"><br/>aliases: start_with</div>
+                        <div style="font-size: small; color: darkgreen"><br/>aliases: dt_format</div>
                 </td>
             </tr>
             <tr>
@@ -402,7 +402,6 @@ Parameters
 Notes
 -----
 
-.. note::
    - For authentication with Azure you can pass parameters, set environment variables, use a profile stored in ~/.azure/credentials, or log in before you run your tasks or playbook with ``az login``.
    - Authentication is also possible using a service principal or Active Directory user.
    - To authenticate via service principal, pass subscription_id, client_id, secret and tenant or set environment variables AZURE_SUBSCRIPTION_ID, AZURE_CLIENT_ID, AZURE_SECRET and AZURE_TENANT.
@@ -412,8 +411,6 @@ Notes
 
 See Also
 --------
-
-.. seealso::
 
    `Sign in with Azure CLI <https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest>`_
        How to authenticate using the ``az login`` command.

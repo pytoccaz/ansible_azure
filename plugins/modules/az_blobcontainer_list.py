@@ -52,7 +52,7 @@ options:
         required: false
         default: '%Y-%m-%d %H:%M:%S'
         aliases:
-            - start_with
+            - dt_format
         version_added: '1.1.0'
 
 extends_documentation_fragment:

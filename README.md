@@ -30,7 +30,7 @@ ansible-galaxy collection install pytoccaz.azure
 ### Modules
 Name | Description
 --- | ---
-[pytoccaz.azure.az_blobcontainer_list](https://github.com/pytoccaz/ansible_azure/blob/v1.1.0/docs/pytoccaz.azure.az_blobcontainer_list_module.rst)|List Azure blobs module
+[pytoccaz.azure.az_blobcontainer_list](https://github.com/pytoccaz/ansible_azure/blob/main/docs/pytoccaz.azure.az_blobcontainer_list_module.rst)|List Azure blobs module
 
 <!--end collection content-->
 
