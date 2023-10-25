@@ -12,7 +12,7 @@ module: az_blobcontainer_list
 
 short_description: List Azure blobs module
 
-version_added: "1.0.0"
+version_added: "1.1.0"
 
 description: Lists the blobs under a specified azure storage container.
 
@@ -104,9 +104,8 @@ container:
     }
 
 '''
-
-import re
 from ansible_collections.azure.azcollection.plugins.module_utils.azure_rm_common import AzureRMModuleBase
+import re
 
 try:
     from azure.core.exceptions import ResourceNotFoundError
@@ -129,8 +128,8 @@ class AzureBlobContainerList(AzureRMModuleBase):
             name_starts_with=dict(required=False, type='str',
                                   aliases=['starts_with']),
             datetime_format=dict(required=False, type='str',
-                                  default='%Y-%m-%d %H:%M:%S',
-                                   aliases=['dt_format']),
+                                 default='%Y-%m-%d %H:%M:%S',
+                                 aliases=['dt_format']),
         )
         self.resource_group = None
         self.storage_account_name = None
@@ -180,7 +179,8 @@ class AzureBlobContainerList(AzureRMModuleBase):
         self.results["container"] = dict(
             name=container_props["name"],
             tags=container_props["metadata"],
-            last_modified=container_props["last_modified"].strftime(self.datetime_format),
+            last_modified=container_props["last_modified"].strftime(
+                self.datetime_format),
         )
 
         blob_list = self.container_client.list_blobs(
@@ -189,7 +189,8 @@ class AzureBlobContainerList(AzureRMModuleBase):
             blob_result = dict(
                 name=blob["name"],
                 tags=blob["metadata"],
-                last_modified=blob["last_modified"].strftime(self.datetime_format),
+                last_modified=blob["last_modified"].strftime(
+                    self.datetime_format),
                 type=blob["blob_type"],
                 content_length=blob["size"],
                 content_settings=dict(

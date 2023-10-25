@@ -8,7 +8,7 @@ pytoccaz.azure.az_blobcontainer_list
 **List Azure blobs module**
 
 
-Version added: 1.0.0
+Version added: 1.1.0
 
 .. contents::
    :local:
@@ -182,6 +182,23 @@ Parameters
                 <td>
                         <div>Name of a blob container within the storage account.</div>
                         <div style="font-size: small; color: darkgreen"><br/>aliases: container_name</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <div class="ansibleOptionAnchor" id="parameter-"></div>
+                    <b>datetime_format</b>
+                    <a class="ansibleOptionLink" href="#parameter-" title="Permalink to this option"></a>
+                    <div style="font-size: small">
+                        <span style="color: purple">-</span>
+                    </div>
+                </td>
+                <td>
+                        <b>Default:</b><br/><div style="color: blue">"%Y-%m-%d %H:%M:%S"</div>
+                </td>
+                <td>
+                        <div>Rendering format for last_modified container and blobs date.</div>
+                        <div style="font-size: small; color: darkgreen"><br/>aliases: start_with</div>
                 </td>
             </tr>
             <tr>
@@ -380,6 +397,7 @@ Parameters
 Notes
 -----
 
+.. note::
    - For authentication with Azure you can pass parameters, set environment variables, use a profile stored in ~/.azure/credentials, or log in before you run your tasks or playbook with ``az login``.
    - Authentication is also possible using a service principal or Active Directory user.
    - To authenticate via service principal, pass subscription_id, client_id, secret and tenant or set environment variables AZURE_SUBSCRIPTION_ID, AZURE_CLIENT_ID, AZURE_SECRET and AZURE_TENANT.
@@ -389,6 +407,8 @@ Notes
 
 See Also
 --------
+
+.. seealso::
 
    `Sign in with Azure CLI <https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest>`_
        How to authenticate using the ``az login`` command.
@@ -426,7 +446,7 @@ Common return values are documented `here <https://docs.ansible.com/ansible/late
                     <b>blobs</b>
                     <a class="ansibleOptionLink" href="#return-" title="Permalink to this return value"></a>
                     <div style="font-size: small">
-                      <span style="color: purple">list of dict</span>
+                      <span style="color: purple">list</span>
                     </div>
                 </td>
                 <td>always</td>
@@ -434,7 +454,7 @@ Common return values are documented `here <https://docs.ansible.com/ansible/late
                             <div>List of blobs.</div>
                     <br/>
                         <div style="font-size: smaller"><b>Sample:</b></div>
-                        <div style="font-size: smaller; color: blue; word-wrap: break-word; word-break: break-all;">[{&#x27;content_length&#x27;: 136532, &#x27;content_settings&#x27;: {&#x27;cache_control&#x27;: None, &#x27;content_disposition&#x27;: None, &#x27;content_encoding&#x27;: None, &#x27;content_language&#x27;: None, &#x27;content_md5&#x27;: None, &#x27;content_type&#x27;: &#x27;application/image&#x27;}, &#x27;last_modified&#x27;: &#x27;09-Mar-2016 22:08:25 +0000&#x27;, &#x27;name&#x27;: &#x27;foo.png&#x27;, &#x27;tags&#x27;: {}, &#x27;type&#x27;: &#x27;BlockBlob&#x27;}]</div>
+                        <div style="font-size: smaller; color: blue; word-wrap: break-word; word-break: break-all;">[{&#x27;content_length&#x27;: 136532, &#x27;content_settings&#x27;: {&#x27;cache_control&#x27;: None, &#x27;content_disposition&#x27;: None, &#x27;content_encoding&#x27;: None, &#x27;content_language&#x27;: None, &#x27;content_md5&#x27;: None, &#x27;content_type&#x27;: &#x27;application/image&#x27;}, &#x27;last_modified&#x27;: &#x27;09-Mar-2016 22:08:25&#x27;, &#x27;name&#x27;: &#x27;foo.png&#x27;, &#x27;tags&#x27;: {}, &#x27;type&#x27;: &#x27;BlockBlob&#x27;}]</div>
                 </td>
             </tr>
             <tr>
@@ -451,7 +471,7 @@ Common return values are documented `here <https://docs.ansible.com/ansible/late
                             <div>Facts about the current state of the selected container.</div>
                     <br/>
                         <div style="font-size: smaller"><b>Sample:</b></div>
-                        <div style="font-size: smaller; color: blue; word-wrap: break-word; word-break: break-all;">{&#x27;last_modified&#x27;: &#x27;2016-03-09 19:28:26 +0000&#x27;, &#x27;name&#x27;: &#x27;foo&#x27;, &#x27;tags&#x27;: {}}</div>
+                        <div style="font-size: smaller; color: blue; word-wrap: break-word; word-break: break-all;">{&#x27;last_modified&#x27;: &#x27;2016-03-09 19:28:26&#x27;, &#x27;name&#x27;: &#x27;foo&#x27;, &#x27;tags&#x27;: {}}</div>
                 </td>
             </tr>
     </table>
@@ -465,4 +485,4 @@ Status
 Authors
 ~~~~~~~
 
-- Olivier Bernard
+- Olivier Bernard (@pytoccaz)
