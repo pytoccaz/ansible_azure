@@ -3,8 +3,6 @@
 # Copyright: (c) 2023, Olivier BERNARD
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 from __future__ import (absolute_import, division, print_function)
-from ansible_collections.azure.azcollection.plugins.module_utils.azure_rm_common import AzureRMModuleBase
-import re
 
 __metaclass__ = type
 
@@ -44,13 +42,20 @@ options:
         required: false
         aliases:
             - start_with
+    datetime_format:
+        description:
+            - Rendering format for last_modified container and blobs date.
+        required: false
+        default: '%Y-%m-%d %H:%M:%S'
+        aliases:
+            - start_with
 
 extends_documentation_fragment:
     - pytoccaz.azure.azure
 
 author:
-    - Olivier Bernard
-    
+    - Olivier Bernard (@pytoccaz)
+
 '''
 
 EXAMPLES = r'''
@@ -68,8 +73,8 @@ blobs:
     description:
         - List of blobs.
     returned: always
-    type: list of dict
-    sample: 
+    type: list
+    sample:
         [
             {
                 "content_length": 136532,
@@ -81,7 +86,7 @@ blobs:
                     "content_md5": null,
                     "content_type": "application/image"
                 },
-                "last_modified": "09-Mar-2016 22:08:25 +0000",
+                "last_modified": "09-Mar-2016 22:08:25",
                 "name": "foo.png",
                 "tags": {},
                 "type": "BlockBlob"
@@ -93,12 +98,15 @@ container:
     returned: always
     type: dict
     sample: {
-        "last_modified": "2016-03-09 19:28:26 +0000",
+        "last_modified": "2016-03-09 19:28:26",
         "name": "foo",
         "tags": {}
     }
+
 '''
 
+import re
+from ansible_collections.azure.azcollection.plugins.module_utils.azure_rm_common import AzureRMModuleBase
 
 try:
     from azure.core.exceptions import ResourceNotFoundError
@@ -120,6 +128,9 @@ class AzureBlobContainerList(AzureRMModuleBase):
                                 aliases=['resource_group_name']),
             name_starts_with=dict(required=False, type='str',
                                   aliases=['starts_with']),
+            datetime_format=dict(required=False, type='str',
+                                  default='%Y-%m-%d %H:%M:%S',
+                                   aliases=['dt_format']),
         )
         self.resource_group = None
         self.storage_account_name = None
@@ -131,7 +142,9 @@ class AzureBlobContainerList(AzureRMModuleBase):
             container=dict(),
             blobs=list(),
         )
-        self.valide_container_name = re.compile("^[a-z0-9]([a-z0-9]|-(?!-)){1,61}[a-z0-9]$")
+        self.valide_container_name = re.compile(
+            "^[a-z0-9]([a-z0-9]|-(?!-)){1,61}[a-z0-9]$")
+        self.datetime_format = None
 
         super(AzureBlobContainerList, self).__init__(derived_arg_spec=self.module_arg_spec,
                                                      supports_check_mode=True,
@@ -144,7 +157,7 @@ class AzureBlobContainerList(AzureRMModuleBase):
 
         if not self.valide_container_name.match(self.container):
             self.fail(
-                "Container name {} is not a valid string".format(
+                "Container name {0} is not a valid string".format(
                     self.container)
             )
 
@@ -162,13 +175,12 @@ class AzureBlobContainerList(AzureRMModuleBase):
             container_props = self.container_client.get_container_properties()
 
         except ResourceNotFoundError:
-            self.fail("Container {} not found".format(self.container))
+            self.fail("Container {0} not found".format(self.container))
 
         self.results["container"] = dict(
             name=container_props["name"],
             tags=container_props["metadata"],
-            last_modified=container_props["last_modified"].strftime(
-                "%Y-%m-%d %H:%M:%S %z"),
+            last_modified=container_props["last_modified"].strftime(self.datetime_format),
         )
 
         blob_list = self.container_client.list_blobs(
@@ -177,8 +189,7 @@ class AzureBlobContainerList(AzureRMModuleBase):
             blob_result = dict(
                 name=blob["name"],
                 tags=blob["metadata"],
-                last_modified=blob["last_modified"].strftime(
-                    "%Y-%m-%d %H:%M:%S %z"),
+                last_modified=blob["last_modified"].strftime(self.datetime_format),
                 type=blob["blob_type"],
                 content_length=blob["size"],
                 content_settings=dict(
