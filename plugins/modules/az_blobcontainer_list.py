@@ -42,6 +42,13 @@ options:
         required: false
         aliases:
             - start_with
+    datetime_format:
+        description:
+            - Rendering format for last_modified container and blobs date.
+        required: false
+        default: '%Y-%m-%d %H:%M:%S'
+        aliases:
+            - start_with
 
 extends_documentation_fragment:
     - pytoccaz.azure.azure
@@ -79,7 +86,7 @@ blobs:
                     "content_md5": null,
                     "content_type": "application/image"
                 },
-                "last_modified": "09-Mar-2016 22:08:25 +0000",
+                "last_modified": "09-Mar-2016 22:08:25",
                 "name": "foo.png",
                 "tags": {},
                 "type": "BlockBlob"
@@ -91,7 +98,7 @@ container:
     returned: always
     type: dict
     sample: {
-        "last_modified": "2016-03-09 19:28:26 +0000",
+        "last_modified": "2016-03-09 19:28:26",
         "name": "foo",
         "tags": {}
     }
@@ -121,6 +128,9 @@ class AzureBlobContainerList(AzureRMModuleBase):
                                 aliases=['resource_group_name']),
             name_starts_with=dict(required=False, type='str',
                                   aliases=['starts_with']),
+            datetime_format=dict(required=False, type='str',
+                                  default='%Y-%m-%d %H:%M:%S',
+                                   aliases=['dt_format']),
         )
         self.resource_group = None
         self.storage_account_name = None
@@ -134,6 +144,7 @@ class AzureBlobContainerList(AzureRMModuleBase):
         )
         self.valide_container_name = re.compile(
             "^[a-z0-9]([a-z0-9]|-(?!-)){1,61}[a-z0-9]$")
+        self.datetime_format = None
 
         super(AzureBlobContainerList, self).__init__(derived_arg_spec=self.module_arg_spec,
                                                      supports_check_mode=True,
@@ -169,8 +180,7 @@ class AzureBlobContainerList(AzureRMModuleBase):
         self.results["container"] = dict(
             name=container_props["name"],
             tags=container_props["metadata"],
-            last_modified=container_props["last_modified"].strftime(
-                "%Y-%m-%d %H:%M:%S"),
+            last_modified=container_props["last_modified"].strftime(self.datetime_format),
         )
 
         blob_list = self.container_client.list_blobs(
@@ -179,8 +189,7 @@ class AzureBlobContainerList(AzureRMModuleBase):
             blob_result = dict(
                 name=blob["name"],
                 tags=blob["metadata"],
-                last_modified=blob["last_modified"].strftime(
-                    "%Y-%m-%d %H:%M:%S"),
+                last_modified=blob["last_modified"].strftime(self.datetime_format),
                 type=blob["blob_type"],
                 content_length=blob["size"],
                 content_settings=dict(
