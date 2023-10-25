@@ -8,7 +8,7 @@ pytoccaz.azure.az_blobcontainer_list
 **List Azure blobs module**
 
 
-Version added: 1.1.0
+Version added: 1.0.0
 
 .. contents::
    :local:
@@ -176,6 +176,7 @@ Parameters
                         <span style="color: purple">-</span>
                          / <span style="color: red">required</span>
                     </div>
+                    <div style="font-style: italic; font-size: small; color: darkgreen">added in 1.0.0</div>
                 </td>
                 <td>
                 </td>
@@ -192,6 +193,7 @@ Parameters
                     <div style="font-size: small">
                         <span style="color: purple">-</span>
                     </div>
+                    <div style="font-style: italic; font-size: small; color: darkgreen">added in 1.1.0</div>
                 </td>
                 <td>
                         <b>Default:</b><br/><div style="color: blue">"%Y-%m-%d %H:%M:%S"</div>
@@ -239,6 +241,7 @@ Parameters
                     <div style="font-size: small">
                         <span style="color: purple">-</span>
                     </div>
+                    <div style="font-style: italic; font-size: small; color: darkgreen">added in 1.0.0</div>
                 </td>
                 <td>
                 </td>
@@ -286,6 +289,7 @@ Parameters
                         <span style="color: purple">-</span>
                          / <span style="color: red">required</span>
                     </div>
+                    <div style="font-style: italic; font-size: small; color: darkgreen">added in 1.0.0</div>
                 </td>
                 <td>
                 </td>
@@ -318,6 +322,7 @@ Parameters
                         <span style="color: purple">-</span>
                          / <span style="color: red">required</span>
                     </div>
+                    <div style="font-style: italic; font-size: small; color: darkgreen">added in 1.0.0</div>
                 </td>
                 <td>
                 </td>
